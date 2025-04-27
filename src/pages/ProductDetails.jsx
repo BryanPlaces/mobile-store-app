@@ -1,6 +1,7 @@
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProductById } from "../services/products";
+import { useCart } from "../context/CartContext";
 
 const ProductDetails = () => {
 
@@ -8,9 +9,11 @@ const ProductDetails = () => {
   const [ showAlert, setShowAlert ]= useState(false);
   const [product, setProduct] = useState({});
 
+  const { addProductToCart } = useCart();
+
   const addProduct = (product) => {
-    console.log(product)
     setShowAlert(true);
+    addProductToCart(product)
   };
 
   useEffect(() => {
