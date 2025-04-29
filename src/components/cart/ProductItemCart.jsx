@@ -4,6 +4,23 @@ import DeleteItemModal from "./DeleteItemModal";
 const ProductItemCart = ({ product }) => {
 
   const { updateProductQuantity } = useCart();
+  console.log(product)
+
+  const getSelectedOptionNames = () => {
+    // Obtener nombre del color seleccionado
+    const colorName = product.options?.colors?.find(
+      color => color.code === product.selectedColor
+    )?.name;
+  
+    // Obtener nombre del almacenamiento seleccionado
+    const storageName = product.options?.storages?.find(
+      storage => storage.code === product.selectedStorage
+    )?.name;
+  
+    return { colorName, storageName };
+  };
+
+  const {colorName, storageName} = getSelectedOptionNames();
 
   return (
     <div className="card h-100">
@@ -22,6 +39,9 @@ const ProductItemCart = ({ product }) => {
           <h5 className="card-title product-title m-0">
             {`${product.brand} ${product.model}`}
           </h5>
+          <p className="card-text">
+            Color: {colorName}, Storage: {storageName}
+          </p>
           <div className="d-flex align-items-center mt-2 gap-2">
             <div className="btn-group" role="group" aria-label="Cantidad">
               <button

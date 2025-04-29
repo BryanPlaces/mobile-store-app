@@ -33,6 +33,10 @@ const Products = () => {
 
   });
 
+  if (!products || Object.keys(products).length === 0) {
+    return <div className="container text-center my-5">Loading...</div>
+  }
+
   return (
     <div className="container text-center my-5">
       <SearchBar onSearch={handleSearch} searchValue={searchValue} productsCount={filteredProducts.length} />
