@@ -4,7 +4,7 @@ import ShopingCartIcon from "./icons/ShoppingCartIcon";
 
 const NavbarComponent = () => {
 
-  const { productsCart } = useCart();
+  const { productsCartCount } = useCart();
 
   return (
     <nav className="navbar navbar-expand-lg bg-white py-3 shadow-sm">
@@ -45,7 +45,7 @@ const NavbarComponent = () => {
               <button className="btn btn-outline-dark">
                 <ShopingCartIcon /> 
                 <span className="badge bg-danger" style={{fontSize: '10px'}}>
-                  {productsCart.length}
+                  {productsCartCount}
                 </span>
               </button>
             </NavLink>

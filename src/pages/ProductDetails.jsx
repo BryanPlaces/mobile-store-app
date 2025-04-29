@@ -67,12 +67,14 @@ const ProductDetails = () => {
 
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [isAddToCartDisabled, setIsAddToCartDisabled] = useState(true);
 
-  const { addProductToCart } = useCart();
+  const { addProductToCart, isProductAdded } = useCart();
 
   const addProduct = (product) => {
     setShowAlert(true);
-    addProductToCart({...product, selectedColor: selectedColor, selectedStorage: selectedStorage})
+    addProductToCart({...product, selectedColor: selectedColor, selectedStorage: selectedStorage});
+    setIsAddToCartDisabled(true)
   };
 
   // If the color or storage has only one option,
@@ -89,9 +91,16 @@ const ProductDetails = () => {
   }, [product, selectedColor, selectedStorage])
 
   useEffect(() => {
+    if ((selectedStorage && selectedColor) && isProductAdded(product.id) == false) {
+      setIsAddToCartDisabled(false);
+    }
+
+  }, [selectedStorage, selectedColor, isProductAdded, product])
+
+  useEffect(() => {
     async function getProductById() {
       const product = await fetchProductById(productId);
-      setProduct(product)
+      setProduct(product);      
     }
 
     getProductById();
@@ -104,6 +113,15 @@ const ProductDetails = () => {
 
   return (
     <div className="container py-5">
+
+      <div className="mb-5">
+        <NavLink to="/">
+          <button className="btn btn-outline-secondary px-3 py-2">
+            ← Go back
+          </button>
+        </NavLink>
+      </div>
+
       <div className="row">
         <div className="col-md-6">
           <img src={product.imgUrl} alt={product.model} className="img-fluid" style={{ height: "400px", width: "400px", objectFit: "contain" }} />
@@ -124,7 +142,7 @@ const ProductDetails = () => {
             <li><strong>Battery:</strong> {product.battery}</li>
             <li><strong>Cameras:</strong>
               <ul>
-                <li><strong>Primary:</strong> {product.primaryCamera.join(', ')}</li>
+                <li><strong>Primary:</strong> { Array.isArray(product.primaryCamera) ? product.primaryCamera.join(', ') : product.primaryCamera }</li>
                 <li><strong>Secondary: </strong>{ Array.isArray(product.secondaryCamera) ? product.secondaryCmera.join(', ') : product.secondaryCmera }</li>
               </ul>
             </li>
@@ -160,14 +178,16 @@ const ProductDetails = () => {
               </div>
             }
 
-            <button className="btn btn-outline-dark px-4 py-2" onClick={() => addProduct(product)} >
-              Add to Cart
-            </button>
-            <NavLink to="/cart">
-              <button className="btn btn-dark ms-2 px-3 py-2">
-                Go to Cart
+            <div className="d-flex justify-content-center gap-3">
+              <button className="btn btn-outline-dark px-4 py-2" disabled={ isAddToCartDisabled } onClick={() => addProduct(product)} >
+                Add to Cart
               </button>
-            </NavLink>
+              <NavLink to="/cart">
+                <button className="btn btn-dark ms-2 px-3 py-2">
+                  Go to Cart
+                </button>
+              </NavLink>
+            </div>
             </>
           }
         </div>

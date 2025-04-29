@@ -28,3 +28,32 @@ export const fetchProductById = async (productId) => {
   const data = await fetchData(url);
   return data;
 }
+
+export const storeProductCart = async (product) => {
+  const url = `${BASE_URL}/cart`;
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+       'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: product.id,
+        colorCode: product.selectedColor,
+        storageCode: product.selectedStorage
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error('Error al crear el producto');
+    }
+
+    const result = await response.json();
+    console.log('Created product:', result);
+    
+    return result;
+
+  } catch (err) {
+    console.log(err.message);
+  }
+}

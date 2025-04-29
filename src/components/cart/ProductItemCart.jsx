@@ -1,10 +1,10 @@
 import { useCart } from "../../context/CartContext";
 import DeleteItemModal from "./DeleteItemModal";
+import { Link } from "react-router-dom";
 
 const ProductItemCart = ({ product }) => {
 
   const { updateProductQuantity } = useCart();
-  console.log(product)
 
   const getSelectedOptionNames = () => {
     // Obtener nombre del color seleccionado
@@ -36,9 +36,11 @@ const ProductItemCart = ({ product }) => {
         </div>
 
         <div className="col-md-8 col-xs-6">
-          <h5 className="card-title product-title m-0">
-            {`${product.brand} ${product.model}`}
-          </h5>
+          <Link to={`${"/details-product"}/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <h5 className="card-title product-title m-0">
+              {`${product.brand} ${product.model}`}
+            </h5>
+          </Link>
           <p className="card-text">
             Color: {colorName}, Storage: {storageName}
           </p>
