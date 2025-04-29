@@ -1,4 +1,4 @@
-# E-commerce - Technical Test
+# Mobile Store - Technical Test
 
 This project is a technical test of an Mobile Store developed with React 18, TypeScript, Bootstrap, and React Router DOM. The installation was done using Vite for optimal performance.
 
