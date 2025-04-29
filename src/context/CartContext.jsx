@@ -88,7 +88,7 @@ export const CartProvider = ({ children }) => {
       cleanCart();
       localStorage.removeItem('cart-products');
       localStorage.removeItem('cart-count');
-    }, 60000); // 1 minute = 60000ms
+    }, 3600000); // 1 hour
     
     setClearCartTimer(newTimer);
   };

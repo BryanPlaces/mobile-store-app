@@ -1,12 +1,84 @@
-# React + Vite
+# E-commerce - Technical Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a technical test of an Mobile Store developed with React 18, TypeScript, Bootstrap, and React Router DOM. The installation was done using Vite for optimal performance.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 18**
+- **TypeScript**
+- **Bootstrap**
+- **React Router DOM**
+- **Vite**
 
-## Expanding the ESLint configuration
+## Installation and Execution
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/BryanPlaces/mobile-store-app.git
+cd mobile-store-app
+```
+
+### 2. Install Dependencies
+
+Run the following command to install all necessary dependencies:
+
+```bash
+npm install
+```
+
+### 3. Start the Development Server
+
+To run the project in development mode, use the following command:
+
+```bash
+npm run start
+```
+
+By default, the project will run at `http://localhost:5173/` (you can check the URL in the terminal after executing the previous command).
+
+### 4. Build for Production
+
+If you want to generate the production build, use the following command:
+
+```bash
+npm run build
+```
+
+The generated files will be in the `dist/` folder.
+
+### 5. Preview the Production Version
+
+To preview the production version locally, you can run:
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+├── src/
+│   ├── assets/       # Static files (images, icons, etc.)
+│   ├── components/   # Reusable components
+│   ├── context/      # Reusable context
+│   ├── hooks/
+│   ├── layout/
+│   ├── pages/        # Main pages
+│   ├── router/       # Route configuration with react-router-dom
+|   ├── services/     # API request handling
+|   ├── styles/
+│   ├── main.tsx      # Project entry point
+├── public/           # Public files
+├── tsconfig.json     # TypeScript configuration
+├── vite.config.ts    # Vite configuration
+├── package.json      # Dependencies and scripts
+```
+
+## Live Demo
+
+You can view the project at the following URL: https://bryan-mobile-store-app.netlify.app/
+
+## Contact
+
+If you have any questions or suggestions, feel free to contact me. Thank you for reviewing this project!
