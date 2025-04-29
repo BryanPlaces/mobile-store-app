@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect, useCallback } from "react";
 import { storeProductCart } from "../services/products";
 
 const storedCartProducts = localStorage.getItem('cart-products');
@@ -24,6 +24,29 @@ export const CartProvider = ({ children }) => {
 
   // Timer
   const [clearCartTimer, setClearCartTimer] = useState(null);
+
+  const cleanCart = useCallback(() => {
+    setProductsCart([]);
+    setProductsCartCount(0);
+    if (clearCartTimer) {
+      clearTimeout(clearCartTimer);
+    }
+  }, [clearCartTimer])
+
+  // Initialize or reset the 1-minute timer
+  const resetCartTimer = useCallback(() => {
+    if (clearCartTimer) {
+      clearTimeout(clearCartTimer);
+    }
+    
+    const newTimer = setTimeout(() => {
+      cleanCart();
+      localStorage.removeItem('cart-products');
+      localStorage.removeItem('cart-count');
+    }, 3600000); // 1 hour
+    
+    setClearCartTimer(newTimer);
+  }, [cleanCart, clearCartTimer]);
 
   useEffect(() => {
     localStorage.setItem('cart-products', JSON.stringify(productsCart));
@@ -53,7 +76,7 @@ export const CartProvider = ({ children }) => {
     if (!isProductInCart) {
       setProductsCart((prevProducts) => [...prevProducts, { ...product, quantity: 1}]);
       const response = await storeProductCart(product) // STORE BY API
-      setProductsCartCount(productsCartCount + response.count);
+      setProductsCartCount(parseInt(productsCartCount) + response.count);
       resetCartTimer();
     }
   };
@@ -68,37 +91,15 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const isProductAdded = (productId) => {
-    return productsCart.some(product => product.id === productId);
-  }
-
+  const isProductAdded = useCallback((productId) =>
+    productsCart.some(product => product.id === productId),
+    [productsCart]
+  );
+  
   const deleteProduct = (productId) => {
     const newProductsCart = productsCart.filter(product => product.id !== productId);
     setProductsCart(newProductsCart);
     setProductsCartCount(productsCartCount-1);
-  }
-
-  // Initialize or reset the 1-minute timer
-  const resetCartTimer = () => {
-    if (clearCartTimer) {
-      clearTimeout(clearCartTimer);
-    }
-    
-    const newTimer = setTimeout(() => {
-      cleanCart();
-      localStorage.removeItem('cart-products');
-      localStorage.removeItem('cart-count');
-    }, 3600000); // 1 hour
-    
-    setClearCartTimer(newTimer);
-  };
-
-  const cleanCart = () => {
-    setProductsCart([]);
-    setProductsCartCount(0);
-    if (clearCartTimer) {
-      clearTimeout(clearCartTimer);
-    }
   }
 
   return (

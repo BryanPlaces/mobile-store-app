@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useProduct } from "../hooks/useProduct";
 
 import { ProductsList, SearchBar } from "../components";
@@ -7,12 +7,8 @@ import "./../styles/Products.css";
 const Products = () => {
 
   const [searchValue, setSearchValue] = useState('');
-  const { products, getProducts } = useProduct();
-    
-  useEffect(() => {
-    getProducts();
-  }, []);
-
+  const { products } = useProduct();
+ 
   const handleSearch = (term) => {
     setSearchValue(term);
   };
