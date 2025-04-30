@@ -47,12 +47,12 @@ npm run build
 
 The generated files will be in the `dist/` folder.
 
-### 5. Preview the Production Version
+### 5.Run tests
 
-To preview the production version locally, you can run:
+To run the tests, you can run:
 
 ```bash
-npm run preview
+npm run test
 ```
 
 ## Project Structure
@@ -69,6 +69,7 @@ npm run preview
 |   ├── services/     # API request handling
 |   ├── styles/
 │   ├── main.tsx      # Project entry point
+│   tests             # Test files
 ├── public/           # Public files
 ├── tsconfig.json     # TypeScript configuration
 ├── vite.config.ts    # Vite configuration
